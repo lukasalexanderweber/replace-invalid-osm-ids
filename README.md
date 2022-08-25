@@ -1,7 +1,7 @@
 # replace-invalid-osm-ids
 Update invalid (&lt;1) Ids within a OSM file
 
-Using Editors as JSOM store yet not existing OSM IDs as negatives.
+Editors as JOSM store yet not existing OSM IDs as negatives.
 However, tools like [osm2pgsql](https://github.com/openstreetmap/osm2pgsql/issues/1097) do not support such negative IDs.
 
 This script updates all invalid IDs to valid IDs.
