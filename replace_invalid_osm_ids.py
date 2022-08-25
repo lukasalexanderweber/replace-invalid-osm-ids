@@ -24,9 +24,10 @@ def replace_invalid_osm_ids(in_file, out_file):
 
 
 def update_ids(element_list):
-    ids = [e.getAttribute("id") for e in element_list]
+    ids = [element.getAttribute("id") for element in element_list]
     id_map = get_id_map(ids)
-    update_elements_ids(element_list, id_map)
+    for element in element_list:
+        update_element_id(element, id_map)
     return id_map
 
 
@@ -50,11 +51,6 @@ def get_id_map(ids):
     return id_map
 
 
-def update_elements_ids(elements, id_map):
-    for element in elements:
-        update_element_id(element, id_map)
-
-
 def update_element_id(element, id_map, attr="id"):
     id = int(element.getAttribute(attr))
     if id_map.get(id) is not None:
@@ -74,10 +70,10 @@ def update_member_refs_in_relations(relation_elements,
     for relation in relation_elements:
         members = relation.getElementsByTagName("member")
         for member in members:
-            typ = member.getAttribute("type")
-            if typ == "node":
+            type = member.getAttribute("type")
+            if type == "node":
                 update_element_id(member, nodes_id_map, "ref")
-            elif typ == "way":
+            elif type == "way":
                 update_element_id(member, ways_id_map, "ref")
 
 
