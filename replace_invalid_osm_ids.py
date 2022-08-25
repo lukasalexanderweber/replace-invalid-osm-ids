@@ -1,12 +1,11 @@
 import argparse
-from xml.dom.minidom import parseString
+import time
+from xml.dom.minidom import parse
 
 
 def replace_invalid_osm_ids(in_file, out_file):
-    with open(in_file, 'r') as file:
-        file_content = file.read()
 
-    dom = parseString(file_content)
+    dom = parse(in_file)
 
     nodes = dom.getElementsByTagName("node")
     ways = dom.getElementsByTagName("way")
@@ -19,7 +18,7 @@ def replace_invalid_osm_ids(in_file, out_file):
     update_node_refs_in_ways(ways, nodes_id_map)
     update_member_refs_in_relations(relations, nodes_id_map, ways_id_map)
 
-    with open(out_file, 'w') as file:
+    with open(out_file, 'w', encoding="utf-8") as file:
         dom.writexml(file)
 
 
@@ -82,7 +81,9 @@ parser.add_argument("in_file", help="The OSM file with invalid Ids")
 parser.add_argument("out_file", help="The OSM file with valid Ids",
                     nargs='?', default="valid.osm")
 
-
 if __name__ == "__main__":
     args = parser.parse_args()
+    t1 = time.time()
     replace_invalid_osm_ids(args.in_file, args.out_file)
+    t2 = time.time()
+    print(f"Total execution time: {t2-t1} seconds")
