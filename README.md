@@ -2,7 +2,7 @@
 Update invalid (&lt;1) Ids within a OSM file
 
 Editors as JOSM store yet not existing OSM IDs as negatives.
-However, tools like [osm2pgsql](https://github.com/openstreetmap/osm2pgsql/issues/1097) do not support such negative IDs.
+However, tools like [osm2pgsql](https://github.com/openstreetmap/osm2pgsql/issues/1097) or [graphhopper](https://github.com/graphhopper/graphhopper) do not support such negative IDs.
 
 This script updates all invalid IDs to valid IDs.
 
